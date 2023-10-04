@@ -1,0 +1,639 @@
+{
+  "root": {
+    "attributes": {
+      "description": { "type": "String" },
+      "email": { "path": "notification/email", "type": "String" },
+      "id": { "type": "String" },
+      "name": { "type": "String" },
+      "tags": { "type": "StringSlice" }
+    },
+    "children": [
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "description": { "type": "String" },
+              "encryption-key": { "path": "encryption/key", "type": "String" },
+              "encryption-type": {
+                "path": "encryption/type",
+                "type": "String"
+              },
+              "id": { "type": "String" },
+              "match": { "type": "String" },
+              "name": { "type": "String" },
+              "network-access": {
+                "default": "all",
+                "path": "access/network",
+                "type": "String"
+              },
+              "replicas-max": {
+                "default": 3,
+                "path": "replicas/max",
+                "type": "Int"
+              },
+              "replicas-min": {
+                "default": 1,
+                "path": "replicas/min",
+                "type": "Int"
+              },
+              "size": { "path": "storage/size", "type": "String" },
+              "tags": { "type": "StringSlice" },
+              "useRegex": {
+                "compat": "useRegex",
+                "path": "regex",
+                "type": "Bool"
+              }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "databases"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "certificate": { "path": "certificate/cert", "type": "String" },
+              "certificate-key": {
+                "path": "certificate/key",
+                "type": "String"
+              },
+              "certificate-type": {
+                "default": "x509",
+                "path": "certificate/type",
+                "type": "String"
+              },
+              "description": { "type": "String" },
+              "fqdn": { "type": "String" },
+              "id": { "type": "String" },
+              "name": { "type": "String" },
+              "tags": { "type": "StringSlice" }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "domains"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "call": { "path": "execution/call", "type": "String" },
+              "description": { "type": "String" },
+              "http-domains": {
+                "compat": "domains",
+                "path": "trigger/domains",
+                "type": "StringSlice"
+              },
+              "http-method": { "path": "trigger/method", "type": "String" },
+              "http-methods": {
+                "path": "trigger/methods",
+                "type": "StringSlice"
+              },
+              "http-paths": { "path": "trigger/paths", "type": "StringSlice" },
+              "id": { "type": "String" },
+              "local": { "path": "trigger/local", "type": "Bool" },
+              "memory": { "path": "execution/memory", "type": "String" },
+              "name": { "type": "String" },
+              "p2p-command": { "path": "trigger/command", "type": "String" },
+              "p2p-protocol": {
+                "compat": "trigger/service",
+                "path": "trigger/protocol",
+                "type": "String"
+              },
+              "pubsub-channel": { "path": "trigger/channel", "type": "String" },
+              "source": { "type": "String" },
+              "tags": { "type": "StringSlice" },
+              "timeout": { "path": "execution/timeout", "type": "String" },
+              "type": { "path": "trigger/type", "type": "String" }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "functions"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "branch": { "path": "source/branch", "type": "String" },
+              "description": { "type": "String" },
+              "git-provider": {
+                "key": true,
+                "path": "source/Either([github])",
+                "type": "String"
+              },
+              "github-fullname": {
+                "path": "source/github/fullname",
+                "type": "String"
+              },
+              "github-id": { "path": "source/github/id", "type": "String" },
+              "id": { "type": "String" },
+              "name": { "type": "String" },
+              "path": { "path": "source/path", "type": "String" },
+              "tags": { "type": "StringSlice" }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "libraries"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "description": { "type": "String" },
+              "id": { "type": "String" },
+              "local": { "type": "Bool" },
+              "match": { "path": "channel/match", "type": "String" },
+              "mqtt": { "path": "bridges/mqtt/enable", "type": "Bool" },
+              "name": { "type": "String" },
+              "regex": { "path": "channel/regex", "type": "Bool" },
+              "tags": { "type": "StringSlice" },
+              "websocket": {
+                "path": "bridges/websocket/enable",
+                "type": "Bool"
+              }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "messaging"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "description": { "type": "String" },
+              "id": { "type": "String" },
+              "name": { "type": "String" },
+              "protocol": { "type": "String" },
+              "tags": { "type": "StringSlice" }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "services"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "call": { "path": "execution/call", "type": "String" },
+              "description": { "type": "String" },
+              "id": { "type": "String" },
+              "memory": { "path": "execution/memory", "type": "String" },
+              "name": { "type": "String" },
+              "source": { "type": "String" },
+              "tags": { "type": "StringSlice" },
+              "timeout": { "path": "execution/timeout", "type": "String" }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "smartops"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "description": { "type": "String" },
+              "id": { "type": "String" },
+              "match": { "type": "String" },
+              "name": { "type": "String" },
+              "network-access": {
+                "default": "all",
+                "path": "access/network",
+                "type": "String"
+              },
+              "size": {
+                "path": "streaming/Either([object streaming])/ttl",
+                "type": "String"
+              },
+              "tags": { "type": "StringSlice" },
+              "ttl": { "path": "streaming/ttl", "type": "String" },
+              "useRegex": {
+                "compat": "useRegex",
+                "path": "regex",
+                "type": "Bool"
+              },
+              "versioning": { "path": "object/versioning", "type": "Bool" }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "storages"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "branch": { "path": "source/branch", "type": "String" },
+              "description": { "type": "String" },
+              "domains": { "path": "domains", "type": "StringSlice" },
+              "git-provider": {
+                "key": true,
+                "path": "source/Either([github])",
+                "type": "String"
+              },
+              "github-fullname": {
+                "path": "source/github/fullname",
+                "type": "String"
+              },
+              "github-id": { "path": "source/github/id", "type": "String" },
+              "id": { "type": "String" },
+              "name": { "type": "String" },
+              "paths": {
+                "compat": "source/paths",
+                "path": "paths",
+                "type": "StringSlice"
+              },
+              "tags": { "type": "StringSlice" }
+            },
+            "children": [],
+            "group": false,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "websites"
+      },
+      {
+        "attributes": {},
+        "children": [
+          {
+            "attributes": {
+              "description": { "type": "String" },
+              "id": { "type": "String" },
+              "name": { "type": "String" },
+              "tags": { "type": "StringSlice" }
+            },
+            "children": [
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "description": { "type": "String" },
+                      "encryption-key": {
+                        "path": "encryption/key",
+                        "type": "String"
+                      },
+                      "encryption-type": {
+                        "path": "encryption/type",
+                        "type": "String"
+                      },
+                      "id": { "type": "String" },
+                      "match": { "type": "String" },
+                      "name": { "type": "String" },
+                      "network-access": {
+                        "default": "all",
+                        "path": "access/network",
+                        "type": "String"
+                      },
+                      "replicas-max": {
+                        "default": 3,
+                        "path": "replicas/max",
+                        "type": "Int"
+                      },
+                      "replicas-min": {
+                        "default": 1,
+                        "path": "replicas/min",
+                        "type": "Int"
+                      },
+                      "size": { "path": "storage/size", "type": "String" },
+                      "tags": { "type": "StringSlice" },
+                      "useRegex": {
+                        "compat": "useRegex",
+                        "path": "regex",
+                        "type": "Bool"
+                      }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "databases"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "certificate": {
+                        "path": "certificate/cert",
+                        "type": "String"
+                      },
+                      "certificate-key": {
+                        "path": "certificate/key",
+                        "type": "String"
+                      },
+                      "certificate-type": {
+                        "default": "x509",
+                        "path": "certificate/type",
+                        "type": "String"
+                      },
+                      "description": { "type": "String" },
+                      "fqdn": { "type": "String" },
+                      "id": { "type": "String" },
+                      "name": { "type": "String" },
+                      "tags": { "type": "StringSlice" }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "domains"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "call": { "path": "execution/call", "type": "String" },
+                      "description": { "type": "String" },
+                      "http-domains": {
+                        "compat": "domains",
+                        "path": "trigger/domains",
+                        "type": "StringSlice"
+                      },
+                      "http-method": {
+                        "path": "trigger/method",
+                        "type": "String"
+                      },
+                      "http-methods": {
+                        "path": "trigger/methods",
+                        "type": "StringSlice"
+                      },
+                      "http-paths": {
+                        "path": "trigger/paths",
+                        "type": "StringSlice"
+                      },
+                      "id": { "type": "String" },
+                      "local": { "path": "trigger/local", "type": "Bool" },
+                      "memory": {
+                        "path": "execution/memory",
+                        "type": "String"
+                      },
+                      "name": { "type": "String" },
+                      "p2p-command": {
+                        "path": "trigger/command",
+                        "type": "String"
+                      },
+                      "p2p-protocol": {
+                        "compat": "trigger/service",
+                        "path": "trigger/protocol",
+                        "type": "String"
+                      },
+                      "pubsub-channel": {
+                        "path": "trigger/channel",
+                        "type": "String"
+                      },
+                      "source": { "type": "String" },
+                      "tags": { "type": "StringSlice" },
+                      "timeout": {
+                        "path": "execution/timeout",
+                        "type": "String"
+                      },
+                      "type": { "path": "trigger/type", "type": "String" }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "functions"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "branch": { "path": "source/branch", "type": "String" },
+                      "description": { "type": "String" },
+                      "git-provider": {
+                        "key": true,
+                        "path": "source/Either([github])",
+                        "type": "String"
+                      },
+                      "github-fullname": {
+                        "path": "source/github/fullname",
+                        "type": "String"
+                      },
+                      "github-id": {
+                        "path": "source/github/id",
+                        "type": "String"
+                      },
+                      "id": { "type": "String" },
+                      "name": { "type": "String" },
+                      "path": { "path": "source/path", "type": "String" },
+                      "tags": { "type": "StringSlice" }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "libraries"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "description": { "type": "String" },
+                      "id": { "type": "String" },
+                      "local": { "type": "Bool" },
+                      "match": { "path": "channel/match", "type": "String" },
+                      "mqtt": { "path": "bridges/mqtt/enable", "type": "Bool" },
+                      "name": { "type": "String" },
+                      "regex": { "path": "channel/regex", "type": "Bool" },
+                      "tags": { "type": "StringSlice" },
+                      "websocket": {
+                        "path": "bridges/websocket/enable",
+                        "type": "Bool"
+                      }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "messaging"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "description": { "type": "String" },
+                      "id": { "type": "String" },
+                      "name": { "type": "String" },
+                      "protocol": { "type": "String" },
+                      "tags": { "type": "StringSlice" }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "services"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "call": { "path": "execution/call", "type": "String" },
+                      "description": { "type": "String" },
+                      "id": { "type": "String" },
+                      "memory": {
+                        "path": "execution/memory",
+                        "type": "String"
+                      },
+                      "name": { "type": "String" },
+                      "source": { "type": "String" },
+                      "tags": { "type": "StringSlice" },
+                      "timeout": {
+                        "path": "execution/timeout",
+                        "type": "String"
+                      }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "smartops"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "description": { "type": "String" },
+                      "id": { "type": "String" },
+                      "match": { "type": "String" },
+                      "name": { "type": "String" },
+                      "network-access": {
+                        "default": "all",
+                        "path": "access/network",
+                        "type": "String"
+                      },
+                      "size": {
+                        "path": "streaming/Either([object streaming])/ttl",
+                        "type": "String"
+                      },
+                      "tags": { "type": "StringSlice" },
+                      "ttl": { "path": "streaming/ttl", "type": "String" },
+                      "useRegex": {
+                        "compat": "useRegex",
+                        "path": "regex",
+                        "type": "Bool"
+                      },
+                      "versioning": {
+                        "path": "object/versioning",
+                        "type": "Bool"
+                      }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "storages"
+              },
+              {
+                "attributes": {},
+                "children": [
+                  {
+                    "attributes": {
+                      "branch": { "path": "source/branch", "type": "String" },
+                      "description": { "type": "String" },
+                      "domains": { "path": "domains", "type": "StringSlice" },
+                      "git-provider": {
+                        "key": true,
+                        "path": "source/Either([github])",
+                        "type": "String"
+                      },
+                      "github-fullname": {
+                        "path": "source/github/fullname",
+                        "type": "String"
+                      },
+                      "github-id": {
+                        "path": "source/github/id",
+                        "type": "String"
+                      },
+                      "id": { "type": "String" },
+                      "name": { "type": "String" },
+                      "paths": {
+                        "compat": "source/paths",
+                        "path": "paths",
+                        "type": "StringSlice"
+                      },
+                      "tags": { "type": "StringSlice" }
+                    },
+                    "children": [],
+                    "group": false,
+                    "match": "StringMatchAll"
+                  }
+                ],
+                "group": true,
+                "match": "websites"
+              }
+            ],
+            "group": true,
+            "match": "StringMatchAll"
+          }
+        ],
+        "group": true,
+        "match": "applications"
+      }
+    ],
+    "group": true,
+    "match": "unknown"
+  }
+}
