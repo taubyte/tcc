@@ -9,8 +9,8 @@ import (
 	"gotest.tools/v3/assert"
 )
 
-func setupTestSchema() *schema {
-	return &schema{
+func setupTestSchema() *schemaDef {
+	return &schemaDef{
 		root: &Node{
 			Match: "sample",
 			Attributes: []*Attribute{
@@ -21,7 +21,7 @@ func setupTestSchema() *schema {
 }
 
 func TestSchemaToMap(t *testing.T) {
-	schema := setupTestSchema()
+	parser := setupTestSchema()
 
 	expectedMap := map[string]any{
 		"root": map[string]any{
@@ -35,11 +35,11 @@ func TestSchemaToMap(t *testing.T) {
 			"children": []any{},
 		},
 	}
-	assert.DeepEqual(t, schema.Map(), expectedMap)
+	assert.DeepEqual(t, parser.Map(), expectedMap)
 }
 
 func TestSchemaJson(t *testing.T) {
-	schema := setupTestSchema()
+	parser := setupTestSchema()
 
 	expectedMap := map[string]any{
 		"root": map[string]any{
@@ -55,11 +55,11 @@ func TestSchemaJson(t *testing.T) {
 	}
 	expectedJson, err := json.Marshal(expectedMap)
 	assert.NilError(t, err)
-	assert.Equal(t, schema.Json(), string(expectedJson))
+	assert.Equal(t, parser.Json(), string(expectedJson))
 }
 
 func TestSchemaYaml(t *testing.T) {
-	schema := setupTestSchema()
+	parser := setupTestSchema()
 
 	expectedMap := map[string]any{
 		"root": map[string]any{
@@ -75,7 +75,7 @@ func TestSchemaYaml(t *testing.T) {
 	}
 	expectedYaml, err := yaml.Marshal(expectedMap)
 	assert.NilError(t, err)
-	assert.Equal(t, schema.Yaml(), string(expectedYaml))
+	assert.Equal(t, parser.Yaml(), string(expectedYaml))
 }
 
 var resSchemaDef = []*Node{
@@ -118,7 +118,7 @@ func TestSchemaParse(t *testing.T) {
 	sr, err := seer.New(seer.SystemFS("fixtures/config"))
 	assert.NilError(t, err)
 
-	obj, err := testSchemaDef.Parse(sr)
+	obj, err := New(testSchemaDef).Parse(sr)
 	assert.NilError(t, err)
 
 	// Top-level attributes
@@ -157,7 +157,7 @@ func TestBadSchemaParse(t *testing.T) {
 	for _, i := range []string{"1", "2", "3"} {
 		sr, err := seer.New(seer.SystemFS("fixtures/config_bad_" + i))
 		assert.NilError(t, err)
-		_, err = testSchemaDef.Parse(sr)
+		_, err = New(testSchemaDef).Parse(sr)
 		if err == nil {
 			t.Error("should have failed")
 			t.FailNow()

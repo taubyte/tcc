@@ -3,6 +3,7 @@ module github.com/taubyte/tcc
 go 1.19
 
 require (
+	github.com/fxamacker/cbor/v2 v2.5.0
 	github.com/ipfs/go-cid v0.4.1
 	github.com/k0kubun/pp/v3 v3.2.0
 	github.com/taubyte/go-seer v1.0.6
@@ -27,6 +28,7 @@ require (
 	github.com/multiformats/go-varint v0.0.6 // indirect
 	github.com/spf13/afero v1.6.0 // indirect
 	github.com/taubyte/utils v0.1.1 // indirect
+	github.com/x448/float16 v0.8.4 // indirect
 	golang.org/x/crypto v0.1.0 // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/text v0.4.0 // indirect

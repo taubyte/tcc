@@ -35,3 +35,11 @@ type Selector[T DataTypes] interface {
 type Opaque []byte
 
 type Refrence any
+
+type Transformer[T DataTypes] interface {
+	Process(Object[T]) (Object[T], error)
+}
+
+type Transtyper[F DataTypes, T DataTypes] interface {
+	Process(Object[F]) (Object[T], error)
+}

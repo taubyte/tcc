@@ -2,7 +2,7 @@ package parser
 
 import (
 	//lint:ignore ST1001 keeps defintion clean
-	. "github.com/taubyte/tcc/schema"
+	. "github.com/taubyte/tcc/parser"
 )
 
 func TaubyteAttributes(attrs ...*Attribute) []*Attribute {

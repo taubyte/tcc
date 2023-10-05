@@ -7,7 +7,11 @@ import (
 
 var NodeDefaultSeerLeaf = "config"
 
-type schema struct {
+type instance struct {
+	schema *schemaDef
+}
+
+type schemaDef struct {
 	root *Node
 }
 
@@ -15,6 +19,10 @@ type Schema interface {
 	Yaml() string
 	Json() string
 	Map() map[string]any
+}
+
+type Parser interface {
+	Schema() Schema
 	Parse(*seer.Seer) (object.Object[object.Refrence], error)
 }
 
@@ -50,11 +58,4 @@ type Node struct {
 	Match      StringMatch
 	Attributes []*Attribute
 	Children   []*Node
-}
-
-type Engine interface {
-}
-
-type engine struct {
-	_map Schema
 }

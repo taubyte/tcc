@@ -9,37 +9,38 @@ import (
 
 	"github.com/k0kubun/pp/v3"
 	"github.com/taubyte/go-seer"
+	"github.com/taubyte/tcc/parser"
 	"gotest.tools/v3/assert"
 )
 
 //go:embed fixtures/schema.json
-var schemaJson string
+var parserJson string
 
 func TestSchema(t *testing.T) {
 	taubyteJson := TaubyteProject.Json()
 
 	fmt.Println(taubyteJson)
 
-	var taubyteData, schemaData interface{}
+	var taubyteData, parserData interface{}
 
 	err := json.Unmarshal([]byte(taubyteJson), &taubyteData)
 	if err != nil {
 		t.Fatalf("Failed to unmarshal TaubyteProject's JSON: %v", err)
 	}
 
-	err = json.Unmarshal([]byte(schemaJson), &schemaData)
+	err = json.Unmarshal([]byte(parserJson), &parserData)
 	if err != nil {
-		t.Fatalf("Failed to unmarshal embedded schema JSON: %v", err)
+		t.Fatalf("Failed to unmarshal embedded parser JSON: %v", err)
 	}
 
-	assert.DeepEqual(t, taubyteData, schemaData)
+	assert.DeepEqual(t, taubyteData, parserData)
 }
 
 func TestConfigSchema(t *testing.T) {
 	sr, err := seer.New(seer.SystemFS("fixtures/config"))
 	assert.NilError(t, err)
 
-	obj, err := TaubyteProject.Parse(sr)
+	obj, err := parser.New(TaubyteProject).Parse(sr)
 	assert.NilError(t, err)
 
 	pp.Print(obj.Map())
