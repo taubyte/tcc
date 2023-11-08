@@ -115,10 +115,10 @@ var testSchemaDef = SchemaDefinition(
 )
 
 func TestSchemaParse(t *testing.T) {
-	sr, err := seer.New(seer.SystemFS("fixtures/config"))
+	p, err := New(testSchemaDef, seer.SystemFS("fixtures/config"))
 	assert.NilError(t, err)
 
-	obj, err := New(testSchemaDef).Parse(sr)
+	obj, err := p.Parse()
 	assert.NilError(t, err)
 
 	// Top-level attributes
@@ -155,13 +155,12 @@ func TestSchemaParse(t *testing.T) {
 
 func TestBadSchemaParse(t *testing.T) {
 	for _, i := range []string{"1", "2", "3"} {
-		sr, err := seer.New(seer.SystemFS("fixtures/config_bad_" + i))
+		p, err := New(testSchemaDef, seer.SystemFS("fixtures/config_bad_"+i))
 		assert.NilError(t, err)
-		_, err = New(testSchemaDef).Parse(sr)
+		_, err = p.Parse()
 		if err == nil {
 			t.Error("should have failed")
 			t.FailNow()
 		}
-
 	}
 }

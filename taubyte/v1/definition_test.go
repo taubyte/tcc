@@ -37,10 +37,10 @@ func TestSchema(t *testing.T) {
 }
 
 func TestConfigSchema(t *testing.T) {
-	sr, err := seer.New(seer.SystemFS("fixtures/config"))
+	p, err := parser.New(TaubyteProject, seer.SystemFS("fixtures/config"))
 	assert.NilError(t, err)
 
-	obj, err := parser.New(TaubyteProject).Parse(sr)
+	obj, err := p.Parse()
 	assert.NilError(t, err)
 
 	pp.Print(obj.Map())

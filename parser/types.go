@@ -9,6 +9,7 @@ var NodeDefaultSeerLeaf = "config"
 
 type instance struct {
 	schema *schemaDef
+	seer   *seer.Seer
 }
 
 type schemaDef struct {
@@ -23,10 +24,21 @@ type Schema interface {
 
 type Parser interface {
 	Schema() Schema
-	Parse(*seer.Seer) (object.Object[object.Refrence], error)
+	Parse() (object.Object[object.Refrence], error)
+	Root() At // flows schema not yaml
+}
+
+type At interface {
+	At(string) (At, error)
+	Get(any) error // converts to schema expected type + validate type and value
+	Set(any) error // validate type and value
 }
 
 type Type int
+
+type SupportedTypes interface {
+	int | bool | float64 | string | []string
+}
 
 const (
 	TypeInt Type = iota
@@ -58,4 +70,10 @@ type Node struct {
 	Match      StringMatch
 	Attributes []*Attribute
 	Children   []*Node
+}
+
+type at struct {
+	node         *Node
+	query        *seer.Query
+	defaultValue any
 }

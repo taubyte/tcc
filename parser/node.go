@@ -17,6 +17,22 @@ func (n *Node) Map() map[string]any {
 	}
 }
 
+func (n *Node) ChildMatch(name string) (*Node, error) {
+	for _, c := range n.Children {
+		switch pitm := c.Match.(type) {
+		case string:
+			if pitm == name {
+				return c, nil
+			}
+		case StringMatcher:
+			if pitm.Match(name) {
+				return c, nil
+			}
+		}
+	}
+	return nil, errors.New("not found")
+}
+
 func (n *Node) attributesToMap() map[string]any {
 	ret := make(map[string]any, len(n.Attributes))
 	for _, attr := range n.Attributes {
@@ -48,7 +64,7 @@ func (n *Node) childrenToSlice() []any {
 	return ret
 }
 
-func buildPathQuery(path []StringMatch, query *seer.Query) (*seer.Query, error) {
+func inferPathQuery(path []StringMatch, query *seer.Query) (*seer.Query, error) {
 	query = query.Fork()
 
 	for _, itm := range path {
@@ -60,13 +76,16 @@ func buildPathQuery(path []StringMatch, query *seer.Query) (*seer.Query, error) 
 			if err != nil {
 				return nil, fmt.Errorf("list path matches failed with %w", err)
 			}
+
 			var found bool
 			for _, l := range list {
 				if pitm.Match(l) {
 					found = true
 					query.Get(l)
+					break
 				}
 			}
+
 			if !found {
 				return nil, errors.New("can't find match for path")
 			}
@@ -93,9 +112,9 @@ func (n *Node) setAttributes(obj object.Object[object.Refrence], query *seer.Que
 		if len(attr.Path) == 0 {
 			attr.Path = []StringMatch{attr.Name}
 		}
-		aq, err := buildPathQuery(attr.Path, query)
+		aq, err := inferPathQuery(attr.Path, query)
 		if err != nil && len(attr.Compat) > 0 {
-			aq, err = buildPathQuery(attr.Compat, query)
+			aq, err = inferPathQuery(attr.Compat, query)
 		}
 
 		if err != nil {
